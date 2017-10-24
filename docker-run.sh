@@ -1,0 +1,1 @@
+docker run -ti -p 6900:6900 -p 6121:6121 -p 5121:5121 -v /home/david/programs/rize/client:/data ra
