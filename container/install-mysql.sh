@@ -3,7 +3,7 @@
 apk add mysql mysql-client
 
 #plagiarized from wangxian/alpine-mysql
-if [ -d /app/mysql ]; then
+if [ -d /var/lib/mysql/mysql ]; then
   echo "[i] MySQL directory already present, skipping creation"
 else
   echo "[i] MySQL data directory not found, creating initial DBs"
@@ -54,6 +54,29 @@ EOF
 
   /usr/bin/mysqld --user=root --bootstrap --verbose=0 < $tfile
   rm -f $tfile
-fi
+    
+  mysqld --user=root &
 
-mysqld --user=root &
+  sleep 5
+
+  mysql --user=root -p$MYSQL_ROOT_PASSWORD $MYSQL_DATABASE < sql-files/item_cash_db.sql
+  mysql --user=root -p$MYSQL_ROOT_PASSWORD $MYSQL_DATABASE < sql-files/item_db2.sql
+  mysql --user=root -p$MYSQL_ROOT_PASSWORD $MYSQL_DATABASE < sql-files/logs.sql
+  mysql --user=root -p$MYSQL_ROOT_PASSWORD $MYSQL_DATABASE < sql-files/mob_db2.sql
+  mysql --user=root -p$MYSQL_ROOT_PASSWORD $MYSQL_DATABASE < sql-files/mob_skill_db.sql
+  mysql --user=root -p$MYSQL_ROOT_PASSWORD $MYSQL_DATABASE < sql-files/mob_skill_db_re.sql
+  mysql --user=root -p$MYSQL_ROOT_PASSWORD $MYSQL_DATABASE < sql-files/item_cash_db2.sql
+  mysql --user=root -p$MYSQL_ROOT_PASSWORD $MYSQL_DATABASE < sql-files/item_db2_re.sql
+  mysql --user=root -p$MYSQL_ROOT_PASSWORD $MYSQL_DATABASE < sql-files/main.sql
+  mysql --user=root -p$MYSQL_ROOT_PASSWORD $MYSQL_DATABASE < sql-files/mob_db2_re.sql
+  mysql --user=root -p$MYSQL_ROOT_PASSWORD $MYSQL_DATABASE < sql-files/mob_skill_db2.sql
+  mysql --user=root -p$MYSQL_ROOT_PASSWORD $MYSQL_DATABASE < sql-files/roulette_default_data.sql
+  mysql --user=root -p$MYSQL_ROOT_PASSWORD $MYSQL_DATABASE < sql-files/item_db.sql
+  mysql --user=root -p$MYSQL_ROOT_PASSWORD $MYSQL_DATABASE < sql-files/item_db_re.sql
+  mysql --user=root -p$MYSQL_ROOT_PASSWORD $MYSQL_DATABASE < sql-files/mob_db.sql
+  mysql --user=root -p$MYSQL_ROOT_PASSWORD $MYSQL_DATABASE < sql-files/mob_db_re.sql
+  mysql --user=root -p$MYSQL_ROOT_PASSWORD $MYSQL_DATABASE < sql-files/mob_skill_db2_re.sql
+
+  killall mysqld
+
+fi

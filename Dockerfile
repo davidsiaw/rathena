@@ -7,11 +7,14 @@ ENV MYSQL_HOST=localhost \
 	MYSQL_DATABASE=ragnarok \
 	MYSQL_USER=ragnarok \
 	MYSQL_PASSWORD=ragnarok \
-	MYSQL_ROOT_PASSWORD=yggdrasil
+	MYSQL_ROOT_PASSWORD=yggdrasil \
+	SERVER_NAME=rAthena
 
 RUN sh /src/container/provision.sh
 
 VOLUME /data
-EXPOSE 6900/tcp 6121/tcp 5121/tcp
+VOLUME /var/lib/mysql
+VOLUME /patch/content
+EXPOSE 6900/tcp 6121/tcp 5121/tcp 8080
 
 CMD ["sh", "/src/container/run.sh"]
