@@ -4,6 +4,7 @@ charconf = File.read("conf/char_athena.conf")
 mapconf = File.read("conf/map_athena.conf")
 mainsql = File.read("sql-files/main.sql")
 
+
 serverip = ENV["SERVER_IP"] || "127.0.0.1"
 
 server_user = SecureRandom.hex(8)
@@ -14,6 +15,7 @@ mainsql = mainsql.sub("'s1', 'p1', 'S','athena@athena.com'", "'#{server_user}', 
 charconf = charconf.sub(/^userid: s1/m, "userid: "+server_user)
 charconf = charconf.sub(/^passwd: p1/m, "passwd: "+server_pass)
 charconf = charconf.sub(/char_ip: .+$/, "char_ip: "+serverip)
+charconf = charconf.sub(/^server_name: rAthena/, "server_name: #{ENV["SERVER_NAME"]}")
 
 mapconf = mapconf.sub(/^userid: s1/m, "userid: "+server_user)
 mapconf = mapconf.sub(/^passwd: p1/m, "passwd: "+server_pass)
