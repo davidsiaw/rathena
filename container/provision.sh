@@ -2,7 +2,7 @@
 set -e
 
 apk update
-apk add build-base zlib-dev mariadb-dev ruby ruby-dev nginx
+apk add build-base zlib-dev mariadb-dev ruby ruby-dev nginx php5-fpm php5-pdo_mysql php5-gd
 
 cd /src
 
