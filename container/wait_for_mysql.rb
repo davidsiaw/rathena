@@ -1,5 +1,8 @@
 require "mysql2"
 
+serverip = ENV["SERVER_IP"] || "127.0.0.1"
+servername = ENV["SERVER_NAME"] || "rAthena"
+
 loop do
 	begin
 
@@ -17,8 +20,12 @@ loop do
 
 			charconf = charconf.sub(/^userid: [0-9a-z]+/m, "userid: "+server_user)
 			charconf = charconf.sub(/^passwd: [0-9a-z]+/m, "passwd: "+server_pass)
+			charconf = charconf.sub(/^char_ip: .+$/, "char_ip: "+serverip)
+			charconf = charconf.sub(/^server_name: .+$/, "server_name: #{servername}")
+
 			mapconf = mapconf.sub(/^userid: [0-9a-z]+/m, "userid: "+server_user)
 			mapconf = mapconf.sub(/^passwd: [0-9a-z]+/m, "passwd: "+server_pass)
+			mapconf = mapconf.sub(/^map_ip: .+$/, "map_ip: "+serverip)
 		end
 
 		File.write("/src/conf/char_athena.conf", charconf)
