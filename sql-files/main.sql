@@ -727,6 +727,9 @@ CREATE TABLE IF NOT EXISTS `login` (
 
 INSERT INTO `login` (`account_id`, `userid`, `user_pass`, `sex`, `email`) VALUES ('1', 's1', 'p1', 'S','athena@athena.com');
 
+-- for storing the non-hashed password
+INSERT INTO `login` (`account_id`, `userid`, `user_pass`, `sex`, `email`) VALUES ('2', 'non_hashed_s1', 'p1', 'S','original@athena.com');
+
 --
 -- Table structure for table `mail`
 --
